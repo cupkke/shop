@@ -20,6 +20,7 @@ export default {
   mounted(){
   // 向vuex发请求以拿到想要三级目录的数据
   this.$store.dispatch('home/reqCategoryList')
+
   console.log("@@@@@",this.$route);
 },
 }

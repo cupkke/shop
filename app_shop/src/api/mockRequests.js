@@ -8,7 +8,7 @@ import 'nprogress/nprogress.css'
 // 其实是个青春版axios 是你单独配置过的
 const requests =axios.create({
     // 基础路径，自动会加上的
-    baseURL:'/mock',
+    baseURL:'/mock',// 啊啊啊啊啊！！！！！！！改了请求路径的啊！
     // 代表超时的时间 5s
     timeout:5000
 })

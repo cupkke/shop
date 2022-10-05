@@ -15,21 +15,21 @@
       </nav>
       <div class="sort" @mouseleave="leaveIndex"  v-show="show">
       <!-- 三级菜单联动 -->
-        <div class="all-sort-list2" @click="goSearch">
+        <div class="all-sort-list2" @click="goSearch ">
           <div class="item" v-for="c1,index in categoryList" :key="c1.categoryId" @mouseenter="getIndex(index)" :class="{currentbg: currentIndex==index}">
             <h3>
-              <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
+              <a :data-categoryname="c1.categoryName" :data-category1id="c1.categoryId">{{c1.categoryName}}</a>
             </h3>
             <!-- 二 三级菜单 -->
             <div class="item-list clearfix" :style="{display:currentIndex==index? 'block' : 'none'}">
               <div class="subitem"  v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                 <dl class="fore">
                   <dt>
-                    <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
+                    <a :data-categoryname="c2.categoryName" :data-category2id="c2.categoryId">{{c2.categoryName}}</a>
                   </dt>
                   <dd>
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
+                      <a :data-categoryname="c3.categoryName" :data-category3id="c3.categoryId">{{c3.categoryName}}</a>
                     </em>
                   </dd>
                 </dl>
@@ -68,6 +68,9 @@ export default {
       // 鼠标移出三级菜单事件 
       leaveIndex(){
         this.currentIndex=-1
+                if(this.$route.path!=='/home'){
+        this.show=false
+        }
       },
       // 两个问题 你怎么确定你点的是a节点 而不是空白地方？ 第二个问题 你就算确定了a节点 你怎么确定你选中的是几级菜单中的a节点？
       goSearch(e){ 
@@ -75,8 +78,9 @@ export default {
         console.log("Element.dataset",Element.dataset); //这里会解析出来 你点击的标签身上是否又自己自定义的属性，注意此时你的自定义属性必须要以data-开头 并在此时返回给你一个对象
         // 运行es6语法 直接解析出来elment.dataset里面的对象属性  并且准备进行下一步的判断
         let {categoryname,category1id,category2id,category3id}=Element.dataset
+        console.log(categoryname,category1id,category2id,category3id);
         if(categoryname){ // 如果点击的是菜单 
-            const location={path:'search'}
+            const location={name:'search'}
             const query={categoryName:categoryname} // 如果点击的属性里面又catagroyname这个属性 则为a标签 准备进行 二三级菜单的判断
           if(category1id){
           // 假如是一级菜单
@@ -99,16 +103,22 @@ export default {
       },
       // 如果不是在home组件下 我们让鼠标移入进去三级菜单就显示 移除的话我就让他不显示
       mouseover(){
-        if(this.$router.path!=='home'){
+        if(this.$route.path!=='/home'){
         this.show=true
         }
       },
       mouseleave(){
-        if(this.$router.path!=='home'){
+        if(this.$route.path!=='/home'){
         this.show=false
         }
       }
-    }
+    },
+    mounted(){
+      if(this.$route.path!=='/home'){
+        this.show=false
+        }
+        console.log(this.$route);
+  }
 };
 </script>
 

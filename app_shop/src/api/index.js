@@ -7,7 +7,14 @@ export const reqCategoryList=()=>{
     // 返回的是一个promise对象
     return requests({url:'product/getBaseCategoryList',method:'get'})
 }
-// 继续对外暴露一个函数，这里是为了获得轮播图的mock数据
+// 继续对外暴露一个函数，这里是为了获得轮播图的mock数据 
 export const reqBannerList=()=> {
     return mockRequests({url:'/banner',method:'get'})
+}
+export const reqFloorList=()=>{
+    return mockRequests({url:'/floor',method:'get'})
+}
+// 获取搜索模块的数据哦 请求方式为post 而且需要带参数（带搜索框的内容）
+export const reqSearchData=(params)=>{
+    return requests({url:'/list',method:'post',data:params})
 }
