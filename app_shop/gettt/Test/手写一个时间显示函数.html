@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+function getDataTime(){
+    let date =new Date()
+    let year=date.getFullYear()
+    let mounth=date.getMonth()+1
+    let day=date.getDay()
+    let hour=date.getHours()
+    let min=date.getMinutes()
+    let second=date.getSeconds()
+    // 
+    if(mounth<10)
+    mounth='0'+mounth
+    if(day<10)
+    day='0'+day
+    if(hour<10)
+    hour='0'+hour
+    if(min<10)
+    min='0'+min
+    if(second<10)
+    second='0'+second
+    return year + '-' + mounth + '-' + day + ' ' + hour + ':' + min + ':' + second
+}
+getDataTime()
+console.log(getDataTime());
+for(let i=0;i<4;i++){
+    i++
+    console.log(i) // 打印了 1 和 3
+}
+</script>
+</html>

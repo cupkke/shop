@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+/*      问题描述: 集合的所有子集 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集。示例如下：
+        输入样例1：nums = [1,2,3] 
+        输出样例1：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]] 
+        输入样例2：nums = [0] 
+        输出样例2：[[],[0]]   */
+    var subsets = function(nums) {
+    let res=[],arr=[];
+    function find(start){
+        res.push([...arr]);
+        for(let i=start;i<nums.length;i++){
+            arr.push(nums[i]);
+            find(i+1);
+            arr.pop();
+        }
+    }
+    find(0);
+    return res;
+ 
+};
+console.log(parseInt('0x111'));
+console.log([].valueOf());
+console.log(parseFloat('0x110'));
+</script>
+</html>

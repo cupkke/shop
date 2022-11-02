@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 这是定义一个数组交换函数
+    // Array.prototype.swap=function(originIndex,targetIndex){
+    //     let temp=this[originIndex]
+    //     this[originIndex]=this[targetIndex]
+    //     this[targetIndex]=this[originIndex]
+    //     console.log(this);
+    // }
+    function bubble(arr){
+        for(let i =0;i<arr.length-1;i++){
+            for(let j=0;j<arr.length-i-1;j++){
+                if(arr[j]>arr[j+1]){
+                    let temp=arr[j]
+                    arr[j]=arr[j+1]
+                    arr[j+1]=temp
+                }
+            }
+        }
+        return arr
+    }
+    console.log(bubble([2,3,1,5,12,33,7]));
+    // 快速排序
+    let arr=[11,2,4,5,6,42]
+    function fu2(arr){
+        if(arr.length<2){
+            return arr
+        }
+            let num=arr[0]
+            let minArr=arr.slice(1).filter((item)=> item<=num)
+            let maxArr=arr.slice(1).filter((item)=>{return  item>num})
+            return fu2(minArr).concat([num]).concat(fu2(maxArr))
+        
+    }
+    console.log(fu2(arr));
+</script>
+</html>

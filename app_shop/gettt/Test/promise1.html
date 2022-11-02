@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<!-- 
+    promise.then()返回的信promise的结果状态由什么决定？
+    1(简单说法) ：由then（）指定的回调函数执行的结果来决定 return 出去了什么？
+    2.如果抛出异常，那么新的promise会变成rejected 。reason为抛出的异常 throw 5 // 5
+    3.如果返回的是非promise 的任意值，新promise 变成resolved，value为返回的新任意值 return 5 //5
+    4.如果返回的是一个新promise，此promise的结果会变成新promise 的结果  return Promise.resolve(6) //6
+ -->
+ <script src="./Promise.js"></script>
+<script>
+     const p=new Promise((resove,reject) =>{
+        setTimeout(()=>{
+            resove(1)
+        },1000)
+    })
+    p.then(
+        value=> {
+            console.log("onResolved1()",value);
+            return Promise.resolve(6)
+        },
+        reason=>{
+            console.log("onRejected1()",reason);
+        }
+    )
+    p.then(
+        value=> {
+            console.log("onResolved2()",value);
+        },
+        reason=>{
+            console.log("onRejected2()",reason);
+        }
+    )
+</script>
+</html>

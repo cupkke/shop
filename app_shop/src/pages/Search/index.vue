@@ -11,670 +11,438 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <!-- categoryName面包屑 -->
+            <li class="with-x" v-if="searchParams.categoryName">
+              {{ searchParams.categoryName }}<i @click="removeone">×</i>
+            </li>
+            <!-- 关键字面包屑 -->
+            <li class="with-x" v-if="searchParams.keyWord">
+              {{ searchParams.keyWord }}<i @click="removetwo">×</i>
+            </li>
+            <!-- 品牌面包屑 -->
+            <li class="with-x" v-if="searchParams.trademark">
+              {{ searchParams.trademark }}<i @click="removethree">×</i>
+            </li>
           </ul>
         </div>
-
         <!--selector-->
         <SearchSelector />
-
         <!--details-->
         <div class="details clearfix">
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{ active: isOne }" @click="changeOrder('1')">
+                  <a
+                    >综合<span v-show="isOne">{{ isASC ? "⬆" : "⬇" }}</span></a
+                  >
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{ active: isTwo }" @click="changeOrder('2')">
+                  <a
+                    >销量<span v-show="isTwo">{{ isASC ? "⬆" : "⬇" }}</span></a
+                  >
                 </li>
               </ul>
             </div>
           </div>
           <div class="goods-list">
             <ul class="yui3-g">
-              <li class="yui3-u-1-5">
+              <li class="yui3-u-1-5" v-for="goods in goodsList" :key="goods.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img src="./images/mobile01.png" /></a>
+                    <router-link :to="`/detail/${goods.id}`" target="_blank">
+                      <img :src="goods.defaultImg"
+                    /></router-link>
                   </div>
                   <div class="price">
                     <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
+                      <em>¥</em>&nbsp;
+                      <i>{{ goods.price }}.00</i>
                     </strong>
                   </div>
                   <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
+                    <a target="_blank" href="item.html" :title="goods.title">
+                      {{ goods.title }}</a
+                    >
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
                   </div>
                   <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile02.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile03.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile04.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile05.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile06.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile01.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile02.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile03.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
-                  </div>
-                </div>
-              </li>
-              <li class="yui3-u-1-5">
-                <div class="list-wrap">
-                  <div class="p-img">
-                    <img src="./images/mobile04.png" />
-                  </div>
-                  <div class="price">
-                    <strong>
-                      <em>¥</em>
-                      <i>6088.00</i>
-                    </strong>
-                  </div>
-                  <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-                      6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
-                  </div>
-                  <div class="commit">
-                    <i class="command">已有<span>2000</span>人评价</i>
-                  </div>
-                  <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
+                    <a
+                      href="success-cart.html"
+                      target="_blank"
+                      class="sui-btn btn-bordered btn-danger"
+                      >加入购物车</a
+                    >
+                    <a href="javascript:void(0);" class="sui-btn btn-bordered"
+                      >收藏</a
+                    >
                   </div>
                 </div>
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
         </div>
       </div>
+      <Pagination :pageNow='searchParams.pageNow' :pageSize="searchParams.pageSize" :totalData="total"></Pagination>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-  import SearchSelector from './SearchSelector/SearchSelector'
-  export default {
-    name: 'Search',
+import { mapGetters, mapState } from "vuex";
+import SearchSelector from "./SearchSelector/SearchSelector";
+export default {
+  name: "Search",
+  data() {
+    return {
+      searchParams: {
+        category1Id: "",
+        category2Id: "",
+        category3Id: "",
+        categoryName: "",
+        keyWord: "",
+        order: "1:desc",
+        pageNow: 1,
+        pageSize: 5,
+        props: [],
+        trademark: "",
+      },
+    };
+  },
+  components: {
+    SearchSelector,
+  },
 
-    components: {
-      SearchSelector
+  mounted() {
+    //  在发请求前要想办法把searchParams这个数据进行更改，让它带着我们想要带的数据去发请求
+    console.log(this.getData);
+    this.getData();
+    //console.log('reqSearchData:',searchData);
+    this.$bus.$on("getTardeData", (data) => {
+      this.searchParams.trademark = data;
+      this.getData();
+    });
+    this.$bus.$on('getPageNow',(page)=>{
+      console.log("222");
+      this.searchParams.pageNow = page;
+      this.getData();
+    })
+  },
+  computed: {
+    ...mapGetters("search", ["goodsList"]),
+    ...mapGetters("search", ["attrsList"]),
+    ...mapGetters("search", ["trademarkList"]),
+    ...mapState('search',['searchData']),
+    isOne() {
+      return this.searchParams.order.indexOf("1") != -1;
     },
-    mounted(){
-      this.$store.dispatch("search/reqSearchData",{})
-      //console.log('reqSearchData:',searchData);
+    isTwo() {
+      return this.searchParams.order.indexOf("2") != -1;
     },
-    computed:{
-      ...mapState('search',['searchData'])
+    isASC() {
+      return this.searchParams.order.indexOf("asc") != -1;
+    },
+    total(){
+      return this.searchData.total
     }
-  }
+  },
+  methods: {
+    getData() {
+      Object.assign(this.searchParams, this.$route.query, this.$route.params);
+      console.log("this.searchParams", this.searchParams);
+      console.log("fa qing qiu le ");
+      this.$store.dispatch("search/reqSearchData", this.searchParams);
+    },
+    // 移除categoryName
+    removeone() {
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
+      this.searchParams.categoryName = undefined;
+      this.$router.push({ name: "search" });
+    },
+    // 移除keyword关键字
+    removetwo() {
+      this.searchParams.keyWord = undefined;
+      this.$router.push({
+        name: "search",
+        params: this.keyWord,
+        query: this.$route.query,
+      });
+    },
+    // 移除品牌关键字 这里要额外GETDATA一次 是因为不像上面监听了路由信息自动发请求了 是需要手动发的。
+    removethree() {
+      this.searchParams.trademark = undefined;
+      this.getData();
+    },
+    // 来确定点到的是综合 还是 价格
+    changeOrder(flag) {
+      if (flag == "1") {
+        this.searchParams.order = this.isASC ? "1:desc" : "1:asc";
+        this.getData();
+      }
+      if (flag == "2") {
+        this.searchParams.order = this.isASC ? "2:desc" : "2:asc";
+        this.getData();
+      }
+    },
+    // 来个方法接收其他组件来的pageNow
+  },
+  // 要对路由里面的信息改变进行监听
+  watch: {
+    $route(newo, old) {
+      // 如果发生改变 再次合并参数并且发送请求
+      this.getData();
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
-  .main {
-    margin: 10px 0;
+.main {
+  margin: 10px 0;
 
-    .py-container {
-      width: 1200px;
-      margin: 0 auto;
+  .py-container {
+    width: 1200px;
+    margin: 0 auto;
 
-      .bread {
-        margin-bottom: 5px;
-        overflow: hidden;
+    .bread {
+      margin-bottom: 5px;
+      overflow: hidden;
 
-        .sui-breadcrumb {
-          padding: 3px 15px;
-          margin: 0;
-          font-weight: 400;
-          border-radius: 3px;
-          float: left;
+      .sui-breadcrumb {
+        padding: 3px 15px;
+        margin: 0;
+        font-weight: 400;
+        border-radius: 3px;
+        float: left;
 
-          li {
-            display: inline-block;
-            line-height: 18px;
+        li {
+          display: inline-block;
+          line-height: 18px;
 
-            a {
-              color: #666;
-              text-decoration: none;
-
-              &:hover {
-                color: #4cb9fc;
-              }
-            }
-          }
-        }
-
-        .sui-tag {
-          margin-top: -5px;
-          list-style: none;
-          font-size: 0;
-          line-height: 0;
-          padding: 5px 0 0;
-          margin-bottom: 18px;
-          float: left;
-
-          .with-x {
-            font-size: 12px;
-            margin: 0 5px 5px 0;
-            display: inline-block;
-            overflow: hidden;
-            color: #000;
-            background: #f7f7f7;
-            padding: 0 7px;
-            height: 20px;
-            line-height: 20px;
-            border: 1px solid #dedede;
-            white-space: nowrap;
-            transition: color 400ms;
-            cursor: pointer;
-
-            i {
-              margin-left: 10px;
-              cursor: pointer;
-              font: 400 14px tahoma;
-              display: inline-block;
-              height: 100%;
-              vertical-align: middle;
-            }
+          a {
+            color: #666;
+            text-decoration: none;
 
             &:hover {
-              color: #28a3ef;
+              color: #4cb9fc;
             }
           }
         }
       }
 
-      .details {
-        margin-bottom: 5px;
+      .sui-tag {
+        margin-top: -5px;
+        list-style: none;
+        font-size: 0;
+        line-height: 0;
+        padding: 5px 0 0;
+        margin-bottom: 18px;
+        float: left;
 
-        .sui-navbar {
-          overflow: visible;
-          margin-bottom: 0;
+        .with-x {
+          font-size: 12px;
+          margin: 0 5px 5px 0;
+          display: inline-block;
+          overflow: hidden;
+          color: #000;
+          background: #f7f7f7;
+          padding: 0 7px;
+          height: 20px;
+          line-height: 20px;
+          border: 1px solid #dedede;
+          white-space: nowrap;
+          transition: color 400ms;
+          cursor: pointer;
 
-          .filter {
-            min-height: 40px;
-            padding-right: 20px;
-            background: #fbfbfb;
-            border: 1px solid #e2e2e2;
-            padding-left: 0;
-            border-radius: 0;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+          i {
+            margin-left: 10px;
+            cursor: pointer;
+            font: 400 14px tahoma;
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+          }
 
-            .sui-nav {
-              position: relative;
-              left: 0;
-              display: block;
-              float: left;
-              margin: 0 10px 0 0;
-
-              li {
-                float: left;
-                line-height: 18px;
-
-                a {
-                  display: block;
-                  cursor: pointer;
-                  padding: 11px 15px;
-                  color: #777;
-                  text-decoration: none;
-                }
-
-                &.active {
-                  a {
-                    background: #e1251b;
-                    color: #fff;
-                  }
-                }
-              }
-            }
+          &:hover {
+            color: #28a3ef;
           }
         }
+      }
+    }
 
-        .goods-list {
-          margin: 20px 0;
+    .details {
+      margin-bottom: 5px;
 
-          ul {
-            display: flex;
-            flex-wrap: wrap;
+      .sui-navbar {
+        overflow: visible;
+        margin-bottom: 0;
+
+        .filter {
+          min-height: 40px;
+          padding-right: 20px;
+          background: #fbfbfb;
+          border: 1px solid #e2e2e2;
+          padding-left: 0;
+          border-radius: 0;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+
+          .sui-nav {
+            position: relative;
+            left: 0;
+            display: block;
+            float: left;
+            margin: 0 10px 0 0;
 
             li {
-              height: 100%;
-              width: 20%;
-              margin-top: 10px;
-              line-height: 28px;
+              float: left;
+              line-height: 18px;
 
-              .list-wrap {
-                .p-img {
-                  padding-left: 15px;
-                  width: 215px;
-                  height: 255px;
+              a {
+                display: block;
+                cursor: pointer;
+                padding: 11px 15px;
+                color: #777;
+                text-decoration: none;
+              }
 
-                  a {
-                    color: #666;
-
-                    img {
-                      max-width: 100%;
-                      height: auto;
-                      vertical-align: middle;
-                    }
-                  }
-                }
-
-                .price {
-                  padding-left: 15px;
-                  font-size: 18px;
-                  color: #c81623;
-
-                  strong {
-                    font-weight: 700;
-
-                    i {
-                      margin-left: -5px;
-                    }
-                  }
-                }
-
-                .attr {
-                  padding-left: 15px;
-                  width: 85%;
-                  overflow: hidden;
-                  margin-bottom: 8px;
-                  min-height: 38px;
-                  cursor: pointer;
-                  line-height: 1.8;
-                  display: -webkit-box;
-                  -webkit-box-orient: vertical;
-                  -webkit-line-clamp: 2;
-
-                  a {
-                    color: #333;
-                    text-decoration: none;
-                  }
-                }
-
-                .commit {
-                  padding-left: 15px;
-                  height: 22px;
-                  font-size: 13px;
-                  color: #a7a7a7;
-
-                  span {
-                    font-weight: 700;
-                    color: #646fb0;
-                  }
-                }
-
-                .operate {
-                  padding: 12px 15px;
-
-                  .sui-btn {
-                    display: inline-block;
-                    padding: 2px 14px;
-                    box-sizing: border-box;
-                    margin-bottom: 0;
-                    font-size: 12px;
-                    line-height: 18px;
-                    text-align: center;
-                    vertical-align: middle;
-                    cursor: pointer;
-                    border-radius: 0;
-                    background-color: transparent;
-                    margin-right: 15px;
-                  }
-
-                  .btn-bordered {
-                    min-width: 85px;
-                    background-color: transparent;
-                    border: 1px solid #8c8c8c;
-                    color: #8c8c8c;
-
-                    &:hover {
-                      border: 1px solid #666;
-                      color: #fff !important;
-                      background-color: #666;
-                      text-decoration: none;
-                    }
-                  }
-
-                  .btn-danger {
-                    border: 1px solid #e1251b;
-                    color: #e1251b;
-
-                    &:hover {
-                      border: 1px solid #e1251b;
-                      background-color: #e1251b;
-                      color: white !important;
-                      text-decoration: none;
-                    }
-                  }
+              &.active {
+                a {
+                  background: #e1251b;
+                  color: #fff;
                 }
               }
             }
           }
         }
+      }
 
-        .page {
-          width: 733px;
-          height: 66px;
-          overflow: hidden;
-          float: right;
+      .goods-list {
+        margin: 20px 0;
 
-          .sui-pagination {
-            margin: 18px 0;
+        ul {
+          display: flex;
+          flex-wrap: wrap;
 
-            ul {
-              margin-left: 0;
-              margin-bottom: 0;
-              vertical-align: middle;
-              width: 490px;
-              float: left;
+          li {
+            height: 100%;
+            width: 20%;
+            margin-top: 10px;
+            line-height: 28px;
 
-              li {
-                line-height: 18px;
-                display: inline-block;
+            .list-wrap {
+              .p-img {
+                padding-left: 15px;
+                width: 215px;
+                height: 255px;
 
                 a {
-                  position: relative;
-                  float: left;
-                  line-height: 18px;
-                  text-decoration: none;
-                  background-color: #fff;
-                  border: 1px solid #e0e9ee;
-                  margin-left: -1px;
-                  font-size: 14px;
-                  padding: 9px 18px;
-                  color: #333;
-                }
+                  color: #666;
 
-                &.active {
-                  a {
-                    background-color: #fff;
-                    color: #e1251b;
-                    border-color: #fff;
-                    cursor: default;
-                  }
-                }
-
-                &.prev {
-                  a {
-                    background-color: #fafafa;
-                  }
-                }
-
-                &.disabled {
-                  a {
-                    color: #999;
-                    cursor: default;
-                  }
-                }
-
-                &.dotted {
-                  span {
-                    margin-left: -1px;
-                    position: relative;
-                    float: left;
-                    line-height: 18px;
-                    text-decoration: none;
-                    background-color: #fff;
-                    font-size: 14px;
-                    border: 0;
-                    padding: 9px 18px;
-                    color: #333;
-                  }
-                }
-
-                &.next {
-                  a {
-                    background-color: #fafafa;
+                  img {
+                    max-width: 100%;
+                    height: auto;
+                    vertical-align: middle;
                   }
                 }
               }
-            }
 
-            div {
-              color: #333;
-              font-size: 14px;
-              float: right;
-              width: 241px;
+              .price {
+                padding-left: 15px;
+                font-size: 18px;
+                color: #c81623;
+
+                strong {
+                  font-weight: 700;
+
+                  i {
+                    margin-left: -5px;
+                  }
+                }
+              }
+
+              .attr {
+                padding-left: 15px;
+                width: 85%;
+                overflow: hidden;
+                margin-bottom: 8px;
+                min-height: 38px;
+                cursor: pointer;
+                line-height: 1.8;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+
+                a {
+                  color: #333;
+                  text-decoration: none;
+                }
+              }
+
+              .commit {
+                padding-left: 15px;
+                height: 22px;
+                font-size: 13px;
+                color: #a7a7a7;
+
+                span {
+                  font-weight: 700;
+                  color: #646fb0;
+                }
+              }
+
+              .operate {
+                padding: 12px 15px;
+
+                .sui-btn {
+                  display: inline-block;
+                  padding: 2px 14px;
+                  box-sizing: border-box;
+                  margin-bottom: 0;
+                  font-size: 12px;
+                  line-height: 18px;
+                  text-align: center;
+                  vertical-align: middle;
+                  cursor: pointer;
+                  border-radius: 0;
+                  background-color: transparent;
+                  margin-right: 15px;
+                }
+
+                .btn-bordered {
+                  min-width: 85px;
+                  background-color: transparent;
+                  border: 1px solid #8c8c8c;
+                  color: #8c8c8c;
+
+                  &:hover {
+                    border: 1px solid #666;
+                    color: #fff !important;
+                    background-color: #666;
+                    text-decoration: none;
+                  }
+                }
+
+                .btn-danger {
+                  border: 1px solid #e1251b;
+                  color: #e1251b;
+
+                  &:hover {
+                    border: 1px solid #e1251b;
+                    background-color: #e1251b;
+                    color: white !important;
+                    text-decoration: none;
+                  }
+                }
+              }
             }
           }
         }
       }
     }
   }
+}
 </style>

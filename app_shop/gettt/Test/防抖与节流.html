@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text"><br>
+    <button>dianwo</button>
+</body>
+<script>
+/*     // 防抖 一段时间内允许触发很多次，但是只有最后一处生效 类似为回城 用闭包的方式写 ，这样不会有全局变量污染
+    let inp=document.querySelector('input')
+   
+    inp.oninput=debounce(function(){
+        console.log("内容是",this.value); // 这边进行业务逻辑
+    },500)
+
+    function debounce(fn,delay){
+        let t=null
+        return function (){
+        if(t!==null){
+           clearTimeout(t) 
+        }
+        t=setTimeout(()=>{
+            fn.call(this)
+        },delay)    
+    }
+    }
+// 节流，一段时间内 一个事件只允许被触发一次
+    let btn =document.querySelector('button')
+    btn.onclick=throttle(function(){
+        console.log('bei dian le !');
+    },500)
+    function throttle(fn,delay){
+        let t=true
+        return function(){
+            if(t){
+            setTimeout(()=>{
+                fn.call(this)
+                t=true
+            },delay)
+        }
+            t=false
+        }
+    } */
+
+// console.log(null == undefined);
+// a = []
+// a.push(...[1, 2, 3])
+// var a = [1,2,3];
+// var b= [4,5,6];
+// console.log(Array.prototype.push.apply(a,b))
+// console.log(a)
+// 
+let btn =document.querySelector('button')
+btn.onclick=Fn(function(){
+    console.log('bei dian le !');
+},500)
+function Fn(fn,delay){
+    let t=true
+    return function(){
+        if(t){
+            setTimeout(()=>{
+                fn()
+                t=true
+            },delay)
+        }
+        t=false
+    }
+}
+let inp=document.querySelector('input')
+inp.oninput=Fn2(function(){
+    console.log(this.value);
+},500)
+function Fn2(fn,delay){
+    let t=null
+    return function(){
+        if(t!==null){
+            clearTimeout(t)
+        }
+        t=setTimeout(()=>{
+            fn.call(this)
+        },delay)
+    }
+}
+</script>
+</html>

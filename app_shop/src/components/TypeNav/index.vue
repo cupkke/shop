@@ -44,7 +44,6 @@
 </template>
 
 <script>
-// import { query } from 'express';
 import {mapState} from "vuex";
 export default {
     name:'TypeNav',
@@ -74,11 +73,9 @@ export default {
       },
       // 两个问题 你怎么确定你点的是a节点 而不是空白地方？ 第二个问题 你就算确定了a节点 你怎么确定你选中的是几级菜单中的a节点？
       goSearch(e){ 
-        let Element=e.target
-        console.log("Element.dataset",Element.dataset); //这里会解析出来 你点击的标签身上是否又自己自定义的属性，注意此时你的自定义属性必须要以data-开头 并在此时返回给你一个对象
+        let Element=e.target //这里会解析出来 你点击的标签身上是否又自己自定义的属性，注意此时你的自定义属性必须要以data-开头 并在此时返回给你一个对象
         // 运行es6语法 直接解析出来elment.dataset里面的对象属性  并且准备进行下一步的判断
         let {categoryname,category1id,category2id,category3id}=Element.dataset
-        console.log(categoryname,category1id,category2id,category3id);
         if(categoryname){ // 如果点击的是菜单 
             const location={name:'search'}
             const query={categoryName:categoryname} // 如果点击的属性里面又catagroyname这个属性 则为a标签 准备进行 二三级菜单的判断
@@ -117,7 +114,6 @@ export default {
       if(this.$route.path!=='/home'){
         this.show=false
         }
-        console.log(this.$route);
   }
 };
 </script>

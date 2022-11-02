@@ -15,6 +15,17 @@ const requests =axios.create({
 // 设置请求拦截器
 requests.interceptors.request.use((config)=>{
     // config是一个配置对象，其中有个属性很重要 是请求头
+    // 看看是否有uuid呀？ 有的话带上啊！
+    let userTempId=localStorage.getItem('nanoid')
+    if(userTempId){
+        config.headers.userTempId=userTempId
+    }
+    // 看看是否有Token 啊  有的话 带上啊！
+    let token=localStorage.getItem('Token')
+    if(token){
+        console.log("有token 并且token已经在请求头了带上了");
+        config.headers.token=token
+    }
     nProgress.start()
     return config
 })

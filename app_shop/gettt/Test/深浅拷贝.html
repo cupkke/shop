@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+</body>
+<script>
+    // es3之中的浅拷贝
+var obj1={
+    name:'leike',
+    age:18
+}
+var obj2={
+    name:'leike2',
+    hb:[1,2,3]
+}
+// 实现浅拷贝
+function simpleClone(obj){
+    let newobj={}
+    for(let key in obj){
+        newobj[key]=obj[key]
+    } // 注意这里的key是建明
+    return newobj
+}
+console.log('qian kao bei !',simpleClone(obj1));
+// 实现深拷贝
+let newobj={}
+function deepClone(newo,old){
+    for(let key in old){
+        let value=old[key]
+        // 如果是数组
+        if(value instanceof Array){
+            newo[key]=[]
+            deepClone(newo[key],value)
+            //如果是对象
+        }else if(value instanceof Object){
+            newo[key]={}
+            deepClone(newo[key],value)
+        }else 
+        // 如果是普通的类型 直接就赋值了
+        newo[key]=value
+    }
+    // return newo
+}
+deepClone(newobj,obj2)
+console.log('shenkaobei',newobj);
+
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 注意顺序啊 -->
+    <div class="right">123</div>
+    <div class="left">123</div> 
+    <div class="mid">123</div>
+
+</body>
+<style>
+       /* 浮动布局  注意这里就没有父盒子需要包裹了*/ 
+   .right{
+    float: right;
+    width: 200px;
+    background-color: beige;
+   }
+   .mid{
+    width: 100%;
+    background-color: blue;
+   }
+   .left{
+    float: left;
+    width: 200px;
+    background-color: pink;
+   }
+</style>
+</html>

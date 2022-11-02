@@ -19,7 +19,7 @@ const actions={
     async reqCategoryList(context){
         // 向我们封装好的接口直接拿数据
         const result=await reqCategoryList()
-        console.log("result",result);
+        console.log("CategoryList",result);
         // 如果成功
         if(result.code==200){
             context.commit('REQCATEGORYLIST',result.data)

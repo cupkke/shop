@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    1.实现一个函数，输入一个字符串，返回该字符串出现最多的字母
+    2.查找字符串中的最长公共前缀
+</body>
+<script>
+//JavaScript V8
+/* const str = 'leikenihaoe!';//获取输入字符串
+const map = new Map(); //新建哈希表存储字母及其对应出现次数
+for(let i in str){ //遍历字符串，首次遇到的新建，已经遇到过的+1
+    if(!map.has(str[i])){
+        map.set(str[i], 1);
+    }else{
+        map.set(str[i], map.get(str[i]) + 1);
+    }
+}
+let maxNums = 0, res = '';
+for(let [i, nums] of map){ //遍历哈希表，找到value(nums)最大的对应字母
+    if(nums > maxNums){
+        res = i;
+        maxNums = nums;
+    }
+}
+console.log(res); */
+// --------------------------------------------------------------------
+const strs = readline().split(",")
+if(!strs) console.log(""); //如果输入为空，自然返回空字符串
+let res = strs[0];
+//新建一个求两个字符串最长公共前缀的函数
+const getLongestCommonPrefix = (str1, str2) => {
+    let minLen = Math.min(str1.length, str2.length);
+    let commonIndex = 0;
+    while(commonIndex < minLen && str1[commonIndex] === str2[commonIndex]){
+        commonIndex++;
+    }
+    return str1.slice(0, commonIndex);
+}
+
+console.log(res);
+// ------------------------------------------如果传值进去的是一个数组呢['abcasd','asds','asd']
+var longestCommonPrefix = function(str) {
+let end=0
+while(str.every(item=>(end<item.length&&(str[0][end]==item[end])))) {
+    end++
+}
+return str[0].slice(0,end)
+    
+};
+// 或者---------------------------------------------------
+var longestCommonPrefix2 = function(strs) {
+    if (strs.length == 0) return "";
+
+    let prefix = strs[0]
+    for (let i = 1; i < strs.length; i++) {
+        prefix = longestCommonPrefixHelp(prefix, strs[i])
+        if (prefix.length == 0) return ""
+    }
+    return prefix
+};
+
+var longestCommonPrefixHelp = function(str1, str2) {
+    const len = Math.min(str1.length, str2.length)
+    let index = 0
+    while (index < len && str1[index] == str2[index]) {
+        index++
+    }
+    return str1.substr(0, index)
+}
+
+// 
+let str='leikenihaoae!'
+let map=new Map()
+function getMax(str){
+    for(let i =0;i<str.length;i++){
+        if(!map.has(str[i])){
+            map.set(str[i],1)
+        }else{
+            map.set(str[i],map.get(str[i])+1)
+        }
+    }
+    let max=0
+    let target=''
+    for(let[i,num] of map){
+        if(num>max){
+            max=num
+            target=i
+        }
+    }
+    return [max,target]
+}
+console.log(getMax(str));
+// 
+function Fn(s1,s2){
+    let minlength=Math.min(s1.length,s2,length)
+    let target=0
+    while(target<minlength&& s1[target]==s2[target]){
+        target ++
+    }
+    return s1.slice(0,target)
+}
+</script>
+</html>

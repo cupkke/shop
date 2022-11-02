@@ -1,0 +1,44 @@
+<!-- /* 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
+
+你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
+
+你可以按任意顺序返回答案。
+
+输入：nums = [2,7,11,15], target = 9
+输出：[0,1]
+解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 
+
+ */ -->
+<script>
+    // 暴力破解
+    function twonums(arr,target){
+    for(let i =0;i<arr.length;i++){
+        let diff=target-arr[i] // 计算差值
+        let diffindex=arr.indexOf(diff) // 看看这个插值在数组里面的定位下标是哪个
+        if(diffindex!==-1&&diffindex!=i){
+            return [diffindex,i]
+        }
+    }
+    return [];
+}
+let arr=[3,3,7]
+console.log(twonums(arr,6));
+
+// 两数相加
+    let arr1=['4','1','8']
+    let arr2=['2','2','5'] //643
+
+    
+    function twoadd(arr1,arr2){
+        let str1=''
+        let str2=''
+        for(let i=0;i<arr1.length;i++){
+            str1=str1+arr1[i]
+            str2=str2+arr2[i]
+        }
+        let sum=parseInt(str1)+parseInt(str2)
+        let result=sum.toString().split('')
+        return result
+    }
+    console.log(twoadd(arr1,arr2));
+</script>

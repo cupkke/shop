@@ -1,0 +1,27 @@
+[
+    {
+        "name":"leike",
+        "address":"湖北省某某市某某1区",
+        "phone":"1230000000",
+        "isDefault":"1"
+        },
+        {
+        "name":"leike2",
+        "address":"湖北省某某市某某2区",
+        "phone":"1231111111",
+        "isDefault":"0"
+
+        },
+        {
+        "name":"leike3",
+        "address":"湖北省某某市某某3区",
+        "phone":"1232222222",
+        "isDefault":"0"
+        },
+        {
+        "name":"leike4",
+        "address":"湖北省某某市某某4区",
+        "phone":"1233333333",
+        "isDefault":"0"
+        }
+]
