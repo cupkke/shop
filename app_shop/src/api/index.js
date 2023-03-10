@@ -71,3 +71,15 @@ export const subMitOrder=(tradeNo,data)=>{
 export const getPayInfo=(orderId)=>{
     return requests({url:`/payment/weixin/createNative/${orderId}`,method:'get'})
 }
+// 查询订单支付状态 是否付款成功？
+export const getPayStatus=(orderId)=>{
+    return requests({url:`/payment/weixin/queryPayStatus/${orderId}`,method:'get'})
+}
+// 查询订单列表 page表示页码 limit表示展示的数量 
+export const getPayList=(page,limit)=>{
+    return requests({url:`/order/auth/${page}/${limit}`,method:'get'})
+}
+// 退出登录
+export const logOut=()=>{
+    return requests({url:'/user/passport/logout',method:'get'})
+}

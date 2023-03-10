@@ -8,7 +8,7 @@
 
                         <p v-if="userInfo.name">
                             <router-link to="/login">欢迎你 {{userInfo.name}}</router-link> 
-                            <router-link to="/register">退出登录</router-link>
+                            <a @click="logOut">退出登录</a>
                         </p>
                         <p v-else>
                             <span>请</span>
@@ -51,7 +51,7 @@ import { mapState } from 'vuex'
 export default {
 name:'Header',
 mounted(){
-
+this.$store.dispatch('user/getUserInfo')
 },
 data(){
     return{
@@ -59,6 +59,7 @@ data(){
     }
 },
 methods:{
+    // 点击查看
     goSearch(){
         // 路由传参 这里还顺便还合并了参数 因为在input里面默认带的是 params 如果此时还有query参数，那么还需要把query给合并进去
         let location={name:'search',params:{keyWord:this.keyWord || undefined} }
@@ -66,6 +67,15 @@ methods:{
             location.query=this.$route.query
         }
         this.$router.push(location)
+    },
+    // 退出登录
+    logOut(){
+       this.$store.dispatch("user/logOut").then((v)=>{
+        localStorage.removeItem('Token')
+        this.$router.push('/home')
+       },(r)=>{
+        alert('退出登录失败')
+       })
     }
 },
 computed:{

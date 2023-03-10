@@ -1,12 +1,16 @@
 // 此仓库负责用户的登录和注册
-import {reqUserCode,userRegister,userLogin,getUserInfo} from '@/api/index'
+import {reqUserCode,userRegister,userLogin,getUserInfo,logOut} from '@/api/index'
 const state={
     //token:''
-    userInfo:{}
+    userInfo:{
+    }
 }
 const mutations={
     GETUSERINFO(state,value){
         state.userInfo=value
+    },
+    LOGOUT(){
+        state.userInfo={}
     }
 }
 const actions={
@@ -36,10 +40,10 @@ const actions={
         let result=await userLogin(data)
         if(result.code==200){
             console.log("userLogin",result);
-            // 如果没有 我就存 有 就不存
-            if(!localStorage.getItem('Token')){
+            // 如果没有 我就存 有 就不存 ----- 不管有没有 我都存 并且覆盖
+            // if(!localStorage.getItem('Token')){
                 localStorage.setItem('Token',result.data.token)
-            }
+            // }
             return 'ok'
         }else{
             return Promise.reject(new Error('fail userLogin'))
@@ -54,6 +58,17 @@ const actions={
             return 'ok'
         }else{
             return Promise.reject(new Error('fail getUserInfo'))
+        }
+    },
+    // 退出登录
+    async logOut(context){
+        let result=await logOut()
+        console.log(result);
+        if(result.code==200){
+            context.commit('LOGOUT')
+            return 'OK'
+        }else{
+            return Promise.reject(new Error('fail logOut'))
         }
     }
 }

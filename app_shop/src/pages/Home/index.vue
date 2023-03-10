@@ -22,7 +22,10 @@ import Brand from './Brand/index.vue'
 
 export default {
     name: "Home",
-    components: { TypeNav, List, Recommend, Rank,  Like,Floor,Brand}
+    components: { TypeNav, List, Recommend, Rank,  Like,Floor,Brand},
+    mounted(){
+        this.$store.dispatch('user/getUserInfo')
+    }
 }
 </script>
 

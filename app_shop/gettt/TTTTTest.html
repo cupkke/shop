@@ -6,11 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+  h1::after {
+    content: '';
+    display: inline-block;
+    height: 100px;
+    width: 2px;
+    background-color: #008c8c;
+  }
+  h1::before {
+    content: '';
+    display: inline-block;
+    height: 100px;
+    width: 2px;
+    background-color: #008c8c;
+  }
+  .item {
+    margin: auto;
+    height: 300px;
+    width: 300px;
+    background-color: #008c8c;
+  }
+</style>
 <body>
-    <div onclick="alert('div')">
-      <p onclick="alert('p')">
-      asdsadaaaa
-    </div>
+<h1>ni hao  wo shi ?</h1>
+<div class="item">
+  <div style="    width: 100px;
+  height: 100px;
+  background-color: red;
+  float: right;
+  margin: 10px 0 0 0">
+
+  </div>
+  <div style="    width: 100px;
+  height: 100px;
+  background-color: red;
+  float: right;
+  margin: 10px 0 0 0">
+
+  </div>
+</div>
 </body>
 <script>
 //     const str1='abc'
@@ -185,7 +220,7 @@
 //   return result
 // }
 // console.log(fn2(1));
-arr=[]
+/* arr=[]
 for(var i=0;i<10;i++){
   arr.push(function(){
     console.log(i);
@@ -209,7 +244,28 @@ return this.fl+this.ls
 }
 // p.getname()
 let arr2=[1,2,3]
-arr2.c
+arr2.c */
 
+ class Person { 
+  // name='leike'
+  age=20
+  constructor(name){
+    this.gender='nv'
+    // 这里的this 指的是对象p
+    this.name=name
+  }
+  sayHi(){
+    console.log('nihao im ' + this.name);
+  }
+}
+let p=new Person('lk')
+p.address='hubei'
+// console.log('p:' ,p);
+// console.log('p:' ,p.sayHi());
+// console.log('Person:' ,Person);
+let arr=[1,2,3]
+arr[5]=10
+console.log(arr);
+console.log(arr[3]);
 </script>
 </html>

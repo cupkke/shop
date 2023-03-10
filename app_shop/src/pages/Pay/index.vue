@@ -65,8 +65,8 @@
         <div class="hr"></div>
 
         <div class="submit">
-          <router-link class="btn" to="/paysuccess">立即支付</router-link>
-          <el-button type="text" @click="open">点击打开 Message Box</el-button>
+          <!-- <router-link  to="/paysuccess">立即支付</router-link> -->
+          <el-button type="text" class="btn" @click="open">立即支付</el-button>
         </div>
         <div class="otherpay">
           <div class="step-tit">
@@ -83,12 +83,15 @@
 </template>
 
 <script>
+import QRcode from 'qrcode'
   export default {
     name: 'Pay',
     data(){
       return{
         orderId:this.$route.query.orderId,
-        payInfo:{}
+        payInfo:{},
+        timer:null,
+        code:''
       }
     },
     mounted(){
@@ -102,13 +105,60 @@
         if(result.code==200){
           this.payInfo=result.data
         }
+      },
+      async open(){
+        // QRcode.toDataURL 返回一个promise  所以要进行成功失败的回调
+        let url=await QRcode.toDataURL(this.payInfo.codeUrl)
+          this.$alert(`<img src="${url}" />`, '微信支付', {
+          dangerouslyUseHTMLString: true,
+          showCancelButton:true,
+          cancelButtonText:'支付遇到问题？',
+          confirmButtonText:"我已支付完成",
+          center:true,
+          // 在窗口关闭前 我仍然需要一些业务逻辑 比如底下的两个按钮有什么作用 
+          // 第一个参数类型是confime和cancle 来区别点到的是哪个按钮，第二个是组件实例vueCommponent 第三个是关闭函数
+          beforeClose:(type,intance,done)=>{
+            if(type=='confirm'){
+              // 点了确定？那么我需要确定code码到底是不是200咯？
+              // if(this.code==200){
+                this.$router.push('/paysuccess')
+                done()
+                clearInterval(this.timer)
+                this.timer=null
+              // }
+            }
+            if(type=='cancel'){
+              alert('请联系。。')
+              clearInterval(this.timer)
+              this.timer=null
+              done()
+            }
+          }
+        }); 
+        // 在窗口弹开的时候 我就需要不停的发请求查询订单状态 所以需要来个定时器 如果没有定时器 我开启一个定时器 
+        if(!this.timer){
+        this.timer=setInterval(()=>{
+          // 在接口 里面发请求
+          this.$API.getPayStatus(this.orderId).then((result)=>{
+            console.log(result);
+            // 如果支付成功 即code=200 我就跳转到 支付成功的页面 记得清楚定时器 保存支付成功的code
+            if(result.code==200){
+            this.code=result.code
+            clearInterval(this.timer)
+            this.timer=null
+            // 并且关闭弹窗
+            this.$msgbox.close()
+            this.$router.push('/paysuccess')
+            }
+          },(reason)=>{
+            console.log(reason);
+          })
+        },1500)
       }
+      // 
+    }
     },
-    open() {
-        // this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
-        //   dangerouslyUseHTMLString: true
-        // });
-      }
+    
   }
 </script>
 

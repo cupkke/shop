@@ -9,6 +9,11 @@ import AddCartSuccess from '../pages/AddCartSuccess'
 import ShopCart from '../pages/ShopCart'
 import Trade from '../pages/Trade'
 import Pay from '../pages/Pay'
+import PaySuccess from '../pages/PaySuccess'
+import Center from '../pages/Center'
+import MyOrder from '../pages/Center/myOrder'
+import GroupOrder from '../pages/Center/groupOrder'
+import store from '@/store'
 Vue.use(VueRouter)
 const router=  new VueRouter({
     namespaced:true,
@@ -17,6 +22,31 @@ const router=  new VueRouter({
             path:'/home',
             name:'home',
             component:Home,
+            meta:{isShow:true}
+        },
+        {
+            path:'/center',
+            name:'center',
+            component:Center,
+            redirect:'/center/myorder',
+            meta:{isShow:true},
+            children:[
+                {
+                    path:'/center/myorder',
+                    name:'MyOrder',
+                    component:MyOrder,
+                },
+                {
+                    path:'/center/grouporder',
+                    name:'GroupOrder',
+                    component:GroupOrder,
+                }
+            ]
+        },
+        {
+            path:'/paysuccess',
+            name:'paysuccess',
+            component:PaySuccess,
             meta:{isShow:true}
         },
         {
@@ -72,20 +102,47 @@ const router=  new VueRouter({
         
     ]
 })
-// router.beforeEach((to,from,next)=>{
-//     // 开始对token进行判断 首先有没有token 有的话 过期了吗？
-//     let token=localStorage.getItem('Token')
-//     console.log("store.state.user",store.state.user.userInfo
-//     );
-//     let name=store.state.user
-//     //console.log(name);
-//     if(token){
-//         // 是否过期了吗？ 过期了name就为undefined了 
-//         if(name){
-
-//         }
-//     }else{
-//         // 这里就是 没有token 进来的分支
-//     }
-// })
+    // let arr=Object.keys(store.state.user.userInfo)
+    // console.log(arr); 还是不行啊settimeout才行
+router.beforeEach((to,from,next)=>{
+    // 开始对token进行判断 首先有没有token 有的话 过期了吗？
+    let token=localStorage.getItem('Token')
+    // setTimeout(() => {
+    //     let name=store.state.user.userInfo.name
+    //     console.log("store.state.user",store.state.user.userInfo.name);
+    // }, 1000);
+    console.log(store);
+    console.log(store.state);
+    let name=store.state.user.userInfo.name
+    if(token){
+        console.log('you token');
+        // 是否过期了吗？ 过期了name就为undefined了 
+        if(name){
+            // 没过期 那不让去登陆注册
+            console.log('没过期');
+            if(to.path=="/login" ||to.path=="/register"){
+                next('/')
+            }else{
+                // 去其他地方 放行
+                next()
+            }
+        }else{
+            console.log('过期le');
+            //store.dispatch('user/getUserInfo')
+            let arr=['/trade','/pay','/paysuccess','center']
+            let result=arr.some(item=>
+                    to.path.indexOf(item)==0 // 如果有一个被匹配上了 就返回true
+            )
+            console.log(result);
+            if(result){
+                next('/login')
+            }else{
+                next()
+            }
+        }
+    }else{
+        // 这里就是 没有token 进来的分支 即未登录
+        next()
+    }
+})
 export default router

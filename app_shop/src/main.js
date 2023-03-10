@@ -9,15 +9,24 @@ Vue.config.productionTip = false
 import TypeNav from './components/TypeNav'
 import Carousel from './components/Carousel'
 import Pagination from './components/pagination'
+import { MessageBox,Button } from 'element-ui';
 // 对接口文件全引入 注意 我在api里面的接口是一个个暴露的 这里的引入一定要用*表示全引入不然会报错
 import * as API from '@/api'
 // 
-// import { MessageBox } from 'element-ui';
+
 // 这里第一个参数是组件的名字，第二个参数是哪个组件
 Vue.component(TypeNav.name,TypeNav)
 Vue.component(Carousel.name,Carousel)
 Vue.component(Pagination.name,Pagination)
-// Vue.component(MessageBox.name, MessageBox);
+Vue.component(Button.name,Button)
+Vue.component(MessageBox.name,MessageBox)
+// 
+
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$prompt = MessageBox.prompt;
+
 // 测试  这里是分别引入 所有要加大括号啊记得
 // import {reqCategoryList} from '@/api'
 // reqCategoryList()
